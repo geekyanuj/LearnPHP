@@ -62,7 +62,7 @@ if ($_GET) {
                 </html>
 
 
-<?php
+    <?php
             }
         }
     } else {
@@ -81,7 +81,7 @@ if (isset($_POST['email'])) {
 
     if ($stmt->execute() == TRUE) {
         echo "<script type='text/javascript'>alert('Student updated successfully!');</script>";
-        header("Refresh:0");
+        header("Location: form.php");
     } else {
         echo "<script type='text/javascript'>alert('Student not updated!');</script>";
     }

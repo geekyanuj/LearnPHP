@@ -25,6 +25,7 @@ if (isset($_POST['email'])) {
 
     if ($stmt->execute() == TRUE) {
         echo "<script type='text/javascript'>alert('Student added successfully!');</script>";
+        
     } else {
         echo "<script type='text/javascript'>alert('Student not added!');</script>";
     }
@@ -33,9 +34,6 @@ if (isset($_POST['email'])) {
 // Read the data
 $readSql = "SELECT * FROM students";
 $res = $connection->query($readSql);
-
-
-
 
 
 ?>
