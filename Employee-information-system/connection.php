@@ -11,4 +11,5 @@ $connection = new mysqli($server, $username, $password, $dbname);
 // } else {
 //     echo " DB Connection: Successfully connected";
 // }
+
 ?>
