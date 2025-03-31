@@ -16,32 +16,40 @@
 
 <body>
     <div class="d-flex flex-column justify-content-center align-items-center vh-100 bg-dark">
-        <div id="loginBox" class="row text-center p-3 w-25 rounded" style="background-color: #4C4B4B; box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
+        <div id="loginBox" class="box row text-center p-3 w-25 rounded">
             <div class="col">
                 <h4 class="text-center mb-4 text-light">Login</h4>
                 <form method="post" id="loginFormId">
                     <input class="form-control mt-2" type="email" name="email" placeholder="Enter Email or Username" required />
-                    <p class="error text-danger text-start" id="email-login-error"></p>
+                    <p class="error text-start" id="email-login-error"></p>
                     <input class="form-control mt-3 " type="password" name="password" placeholder="Enter your Password" required />
-                    <p class="error text-danger text-start" id="password-login-error"></p>
+                    <p class="error text-start" id="password-login-error"></p>
                     <p class="text-start mt-1 text-light">Not a user? <a id="registerLink" class="text-white cursor-pointer" style="cursor:pointer">Register</a></p>
-                    <input type="submit" id="loginBtn" class="btn  btn-success my-2" name="submit" value="Login" />
+                    <input type="submit" id="loginBtn" class="btn btn-success my-2" name="submit" value="Login" />
                 </form>
             </div>
         </div>
 
-        <div id="registerBox" class="row text-center p-3 w-25 rounded" style="background-color: #4C4B4B; box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px; display: none;">
+        <div id="registerBox" class="box row text-center p-3 w-25 rounded" style="display: none;">
             <div class="col">
                 <h4 class="text-center mb-4 text-light">Register</h4>
                 <form method="post" id="registerFormId">
-                    <input class="form-control mt-2" type="email" name="r-email" placeholder="Enter Email" autocomplete="r-email" required />
-                    <p class="error text-danger text-start" id="email-error"></p>
-                    <input class="form-control mt-3" type="text" name="r-username" placeholder="Enter Username" autocomplete="r-username" required />
-                    <p class="error text-danger text-start" id="username-error"></p>
-                    <input class="form-control mt-3 " type="password" name="r-password" placeholder="Enter Password" autocomplete="r-password" required />
-                    <p class="error text-danger text-start" id="password-error"></p>
-                    <input class="form-control mt-3 " type="password" name="r-cpassword" placeholder="Confirm Password" autocomplete="r-cpassword" required />
-                    <p class="error text-danger text-start" id="cpassword-error"></p>
+                    <div class="mt-3">
+                        <input class="form-control" type="email" name="r-email" placeholder="Enter Email" autocomplete="r-email" required />
+                        <p class="error text-start" id="email-error"></p>
+                    </div>
+                    <div class="mt-3">
+                        <input class="form-control" type="text" name="r-username" placeholder="Enter Username" autocomplete="r-username" required />
+                        <p class="error text-start" id="username-error"></p>
+                    </div>
+                    <div class="mt-3">
+                        <input class="form-control" type="password" name="r-password" placeholder="Enter Password" autocomplete="r-password" required />
+                        <p class="error text-start" id="password-error"></p>
+                    </div>
+                    <div class="mt-3">
+                        <input class="form-control" type="password" name="r-cpassword" placeholder="Confirm Password" autocomplete="r-cpassword" required />
+                        <p class="error text-start" id="cpassword-error"></p>
+                    </div>
                     <p class="text-start mt-1 text-light">Already a user? <a id="loginLink" class="text-white" style="cursor:pointer">Login</a></p>
                     <input type="submit" id="registerBtn" class="btn btn-primary my-2" name="submit" value="Register" />
                 </form>
@@ -93,7 +101,7 @@
                             $("#registerFormId")[0].reset();
                         } else {
 
-                            let msgUsername = response.message['r-username'];
+                            let msgUsername = response.message['r-username'] || response.message;
                             let msgEmail = response.message['r-email'];
                             let msgPassword = response.message['r-password'];
                             let msgCpassword = response.message['r-cpassword'];
@@ -107,18 +115,18 @@
                                 $('#password-error').html('');
                                 $('#cpassword-error').html('');
                             }, 3000);
-
+                            
                         }
-
-
+                        
                     },
-                    error: function(response) {
+                    error: function(xhr, status, error) {
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
-                            text: "Something went wrong!",
+                            text: error,
                             footer: '<a href="#"></a>'
                         });
+                        
 
                     }
                 });
@@ -134,7 +142,7 @@
                     data: data,
                     dataType: "json",
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
@@ -153,19 +161,25 @@
                             }   
                             $("#loginFormId")[0].reset();
                         } else {
-
+                            
                             let msgEmail = response.message['email'];
                             let msgPassword = response.message['password'];
-                            $('#email-login-error').html(msgEmail);
-                            $('#password-login-error').html(msgPassword);
-                            setTimeout(function() {
-                                $('#email-login-error').html('');
-                                $('#password-login-error').html('');
-                            }, 3000);
-                            Swal.fire({
-                                title: response.message,
-                                icon: "error",
-                            });
+                            if(msgEmail !=null || msgPassword !=null){
+
+                                $('#email-login-error').html(msgEmail);
+                                $('#password-login-error').html(msgPassword);
+                                setTimeout(function() {
+                                    $('#email-login-error').html('');
+                                    $('#password-login-error').html('');
+                                }, 3000);
+
+                            }else{
+                                Swal.fire({
+                                    title: response.message,
+                                    icon: "error",
+                                });
+
+                            }
 
                         }
                     }

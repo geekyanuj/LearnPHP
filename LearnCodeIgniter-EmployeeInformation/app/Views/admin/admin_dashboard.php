@@ -13,27 +13,59 @@
 
 <body>
     <header>
-        <nav class="nav align-items-center w-100">
-            <div class="logo p-2"> 
+        <nav class="nav justify-content-between align-items-center">
+            <div class="nav-icons ps-2">
+                <i class="bi bi-list fs-1 text-light"></i>
+            </div>
+            <div class="logo p-1 w-50"> 
                 <img class="" src="<?php echo base_url('assets/logo.png') ?>" alt="logo">
             </div> 
-            <i class="bi bi-list fs-1"></i>
-            <h4 class="pt-2 ps-5">ATYPICAL SOFTWARE PVT LTD</h4>
             <div class="nav-icons">
-                <i class="bi bi-building fs-2 primary_color"></i>
+                <i class="bi bi-building fs-2 text-light mx-3 cursor-pointer"></i>
+                <i class="bi bi-calendar3 fs-2 text-light mx-3 cursor-pointer"></i>
             </div>
-            <div class="profile-section w-100 d-flex justify-content-end">
-                <img class="w-25 h-75 rounded" src="<?php echo base_url('assets/male.png')?>" alt="user">
+            <div class="profile-section me-2 ">
+                <div class="img-icon-profile">
+                    <img class="profileImg" src="<?php echo base_url('assets/male.png')?>" alt="user">
+                </div>    
             </div>
-            
         </nav>
     </header>
-    <div class="container justify-content-center align-items-center vh-100 bg-dark">
+    <div class="container justify-content-center align-items-center vh-100">
+        <h2>Welcome <span id="username"><?php echo $username ?></span></h2>
         <div class="row">
-            <div class="col-sm-6">
-                <h2>Welcome <span id="username"><?php echo $username ?></span></h2>
-
-                <a href="/admin/logout">Logout</a>
+                <div class="box col-sm-3 align-items-center d-flex flex-column text-light">
+                    <i class="bi bi-people-fill fs-2"></i>
+                    <p class="m-0">Total Employees</p>
+                    <h5>50</h5>
+                </div>
+                <div class="box col-sm-3 align-items-center d-flex flex-column text-light">
+                    <i class="bi bi-people-fill fs-2"></i>
+                    <p class="m-0">Teams</p>
+                    <h5>50</h5>
+                </div>
+                <div class="box col-sm-3 align-items-center d-flex flex-column text-light">
+                    <i class="bi bi-people-fill fs-2"></i>
+                    <p class="m-0"> Reports & Analytics</p>
+                    <h5>50</h5>
+                </div>
+                <div class="box col-sm-3 align-items-center d-flex flex-column text-light">
+                    <i class="bi bi-people-fill fs-2"></i>
+                    <p class="m-0">Notifications & Alerts</p>
+                    <h5>50</h5>
+                </div>
+                <div class="box col-sm-3">
+                    
+                </div>
+                <div class="box col-sm-3">
+                    
+                </div>
+                <div class="box col-sm-3">
+                    
+                </div>
+            
+            <div class="col-sm-12">
+            <a href="/admin/logout">Logout</a>
             </div>
         </div>
     </div>

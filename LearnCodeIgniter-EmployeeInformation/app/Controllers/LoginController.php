@@ -76,8 +76,18 @@ class LoginController extends BaseController
                     $employeeModel = new EmployeeModel();
                     $data = $employeeModel->where('username', $email)->first();
                     if (!empty($data)) {
-                        if(strcmp($data['password'],$this->request->getPost('password'))){
-                            $response = ['status'=> true,'id'=> $data['id'],'username'=> $data['username']];
+                        if(!strcmp($data['password'],$this->request->getPost('password'))){
+                            $response = ['status'=> true,'id'=> $data['emp_id'],'username'=> $data['username']];
+                            $role = $data['role'];
+                            session()->set('user_data', $data);
+                            // session()->set('username', $data['username']);
+                            if($role == 2){
+                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],'role'=>$role,'message'=>'Login Successful redirect to dashboard !!'];
+                            }else{
+                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],'role'=>$role,'message'=>'Login Successful redirect to dashboard !!'];
+                            }
+                            // print_r($role); die;
+
                         }else{
                             $response = ['status'=> false,'message'=> 'Incorrect Password'];
                         }
@@ -147,22 +157,32 @@ class LoginController extends BaseController
                     "password" => $this->request->getVar('r-password'),
                 ];
 
-                if ($employeeModel->insert($data)) {
-                    $response = [
-                        'status' => true,
-                        'message' => 'Your Registration was successful! Please Login',
-                    ];
-                } else {
+                $existingEmployee = $employeeModel->where('email', $data['email'])->orWhere('username', $data['username'])->first();
+                if ($existingEmployee) {
                     $response = [
                         'status' => false,
-                        'message' => 'Database error',
+                        'message' => 'The email or username is already taken. Please try another one.',
                     ];
+                    http_response_code(400); // 400 Bad Request
+                }else{
+                    if ($employeeModel->insert($data)) {
+                        $response = [
+                            'status' => true,
+                            'message' => 'Your Registration was successful! Please Login',
+                        ];
+                    } else {
+                        $response = [
+                            'status' => false,
+                            'message' => 'Database error. Please try again later.',
+                        ];
+                    }
                 }
+
             } else {
                 $errors = $this->validator->getErrors();
                 $response = [
                     'status'  => false,
-                    'message'  => $errors
+                    'message'  => $errors,
                 ];
                 http_response_code(422);
                 // Return the response as JSON
@@ -204,7 +224,7 @@ class LoginController extends BaseController
     public function adminlogout(){
         $session = session();
         $session->destroy();
-         return redirect()->to('/');
+        return redirect()->to('/');
 
     }
 }

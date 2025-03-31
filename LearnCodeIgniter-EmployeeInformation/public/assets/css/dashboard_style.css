@@ -6,10 +6,10 @@
     color: #553E71;
 }
 .logo{
-    width: 240px;
+    width: 20rem;
 }
 .logo img{
-    width: 210px;
+    width: 18rem;
 }
 
 .primary_color{
@@ -18,4 +18,33 @@
 
 .secondary_color{
     color: #553E71;
+}
+
+.profileImg{
+    max-width: 50px;
+    
+}
+.nav-icons{
+    width: 10%;
+
+}
+.nav-icons i:hover{
+    /* background-color: transparent; */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+.profileImg{
+    background-color: #FFF;
+    height: 50px;
+    width: 50px;
+    border-radius: 50% !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.box{
+    height: 100px;
+    width: 200px;
+    background-color: brown;
+    border-radius: 20px;
+    margin: 10px;
 }
