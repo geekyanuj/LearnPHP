@@ -134,13 +134,23 @@
                     data: data,
                     dataType: "json",
                     success: function(response) {
-                        // console.log(response);
+                        console.log(response);
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 icon: "success",
                             });
+                            var role = response.role;
+                            if(role ==2){
+                                setTimeout(function(){
 
+                                    window.location.href="/admin/dashboard";
+                                },2000)
+                            }else{
+                                setTimeout(function(){
+                                    window.location.href="/user/dashboard";
+                                    },2000)
+                            }   
                             $("#loginFormId")[0].reset();
                         } else {
 
