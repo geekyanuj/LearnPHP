@@ -8,11 +8,10 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'LoginController::index');
 $routes->post('/register', 'LoginController::register');
 $routes->post('/login/authenticate', 'LoginController::login');
-$routes->get('/user/dashboard', 'LoginController::userdashboard');
 
 
-$routes->get('/admin/dashboard', 'LoginController::admindashboard');
-$routes->get('/admin/logout', 'LoginController::adminlogout');
+$routes->get('/dashboard', 'DashboardController::index');
+$routes->get('/logout', 'DashboardController::logout');
 
 
 

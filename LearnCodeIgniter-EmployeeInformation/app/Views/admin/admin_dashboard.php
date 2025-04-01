@@ -11,28 +11,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="hero">
     <header>
-        <nav class="nav justify-content-between align-items-center">
-            <div class="nav-icons ps-2">
-                <i class="bi bi-list fs-1 text-light"></i>
-            </div>
-            <div class="logo p-1 w-50"> 
-                <img class="" src="<?php echo base_url('assets/logo.png') ?>" alt="logo">
-            </div> 
-            <div class="nav-icons">
-                <i class="bi bi-building fs-2 text-light mx-3 cursor-pointer"></i>
-                <i class="bi bi-calendar3 fs-2 text-light mx-3 cursor-pointer"></i>
-            </div>
-            <div class="profile-section me-2 ">
-                <div class="img-icon-profile">
-                    <img class="profileImg" src="<?php echo base_url('assets/male.png')?>" alt="user">
-                </div>    
-            </div>
+        <nav class="nav d-flex justify-content-between align-items-center position-relative w-100 ">
+                <img class="logo" src="<?php echo base_url('assets/logo.png') ?>" alt="logo">
+                <ul class="list-unstyled w-75 text-end">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Company</a></li>
+                    <li><a href="">Contact HR</a></li>
+                    <li><a href="">Attendance</a></li>
+                </ul>
+                <img class="user-pic" src="<?php echo base_url('assets/male.png') ?>" alt="user-pic">
+                <div class="sub-menu-wrap">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img class="user-pic-img" src="<?php echo base_url('assets/male.png') ?>" alt="user-pic">
+                            <h4><?php $session= session(); echo $session->get('username') ?></h4>
+                        </div>
+                        <hr>
+                        <a href="" class="sub-menu-link">
+                            <i class="bi bi-person"></i>
+                            <p>Edit Profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="" class="sub-menu-link">
+                            <i class="bi bi-gear"></i>
+                            <p>Setting & Privacy</p>
+                            <span>></span>
+                        </a>
+                        <a href="" class="sub-menu-link">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <p>Logout</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
         </nav>
     </header>
-    <div class="container justify-content-center align-items-center vh-100">
-        <h2>Welcome <span id="username"><?php echo $username ?></span></h2>
+    <div class="container justify-content-center align-items-center">
+        <h2>Welcome <span id="username"><?php  echo $session->get('username') ?></span></h2>
         <div class="row">
                 <div class="box col-sm-3 align-items-center d-flex flex-column text-light">
                     <i class="bi bi-people-fill fs-2"></i>
@@ -54,20 +71,11 @@
                     <p class="m-0">Notifications & Alerts</p>
                     <h5>50</h5>
                 </div>
-                <div class="box col-sm-3">
-                    
-                </div>
-                <div class="box col-sm-3">
-                    
-                </div>
-                <div class="box col-sm-3">
-                    
-                </div>
             
-            <div class="col-sm-12">
-            <a href="/admin/logout">Logout</a>
             </div>
-        </div>
+            <div class="">
+                <a href="/logout">Logout</a>
+            </div>
     </div>
 
 

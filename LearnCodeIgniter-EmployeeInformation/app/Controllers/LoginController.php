@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\EmployeeModel;
+use CodeIgniter\HTTP\Message;
 
 class LoginController extends BaseController
 {
@@ -15,6 +16,7 @@ class LoginController extends BaseController
     {
         return view('login/index');
     }
+
 
     public function login()
     {
@@ -38,23 +40,15 @@ class LoginController extends BaseController
                      
                     if (!empty($data)) {
                         if(!strcmp($data['password'],$this->request->getPost('password'))){
-                            $role = $data['role'];
-                            session()->set('user_data', $data);
-                            // session()->set('username', $data['username']);
-                            if($role == 2){
-                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],
-                                'role'=>$role,'message'=>'Login Successful redirect to dashboard !!'];
-                            }else{
-                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],'role'=>$role,
-                            'message'=>'Login Successful redirect to dashboard !!'];
-                            }
-                            // print_r($role); die;
-                           
+                            //successful login
+                            $response = ['status'=> true,'message'=>'Login Successfully'];
+                            session()->set('id', $data['emp_id']);
+                            session()->set('username', $data['username']);
+                            session()->set('role', $data['role']);
                             
                         }else{
                             $response = ['status'=> false,'message'=> 'Incorrect Password'];
                         }
-                        
                     }else{
                         $response = ['status' => false, 'message' => 'User not found!'];
                     }
@@ -77,17 +71,11 @@ class LoginController extends BaseController
                     $data = $employeeModel->where('username', $email)->first();
                     if (!empty($data)) {
                         if(!strcmp($data['password'],$this->request->getPost('password'))){
-                            $response = ['status'=> true,'id'=> $data['emp_id'],'username'=> $data['username']];
-                            $role = $data['role'];
-                            session()->set('user_data', $data);
-                            // session()->set('username', $data['username']);
-                            if($role == 2){
-                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],'role'=>$role,'message'=>'Login Successful redirect to dashboard !!'];
-                            }else{
-                                $response = ['status' => true, 'id' => $data['emp_id'], 'username'=> $data['username'],'role'=>$role,'message'=>'Login Successful redirect to dashboard !!'];
-                            }
-                            // print_r($role); die;
-
+                            //successful login
+                            $response = ['status'=> true,'message'=>'Login Successfully'];
+                            session()->set('id', $data['emp_id']);
+                            session()->set('username', $data['username']);
+                            session()->set('role', $data['role']);
                         }else{
                             $response = ['status'=> false,'message'=> 'Incorrect Password'];
                         }
@@ -194,37 +182,6 @@ class LoginController extends BaseController
     }
 
 
-    public function userdashboard(){
-        return view('employee/user_dashboard');
-    }
+  
 
-
-    public function admindashboard(){
-
-        $session = session();
-       
-        
-
-        $logged_in = $session->get('user_data');
-        // print_r($logged_in); die;
-
-        // if(!empty($logged_in)){
-        //     echo "Session found";}
-        //     else{
-        //         // echo "Session not found";
-
-        //     } die;
-        $username = $logged_in['username'];
-        // return view('admin/admin_dashboard', [
-        //     'logged_in' => $logged_in,
-        //     'username'  => $username    
-        // ]);
-        return view('admin/admin_dashboard',compact('logged_in','username'));
-    }
-    public function adminlogout(){
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/');
-
-    }
 }

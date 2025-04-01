@@ -73,12 +73,12 @@
     <script>
         $(document).ready(function() {
             $("#registerLink").on('click', function(e) {
-                $("#registerBox").css("display", "block");
                 $("#loginBox").css("display", "none");
+                $("#registerBox").css("display", "block");
             });
             $("#loginLink").on('click', function(e) {
-                $("#loginBox").css("display", "block");
                 $("#registerBox").css("display", "none");
+                $("#loginBox").css("display", "block");
             });
 
             $('#registerBtn').on('click', function(e) {
@@ -99,6 +99,8 @@
                             });
 
                             $("#registerFormId")[0].reset();
+                            $("#registerBox").css("display", "none");
+                            $("#loginBox").css("display", "block");
                         } else {
 
                             let msgUsername = response.message['r-username'] || response.message;
@@ -148,17 +150,8 @@
                                 title: response.message,
                                 icon: "success",
                             });
-                            var role = response.role;
-                            if(role ==2){
-                                setTimeout(function(){
-
-                                    window.location.href="/admin/dashboard";
-                                },2000)
-                            }else{
-                                setTimeout(function(){
-                                    window.location.href="/user/dashboard";
-                                    },2000)
-                            }   
+                              
+                            window.location.href="/dashboard";
                             $("#loginFormId")[0].reset();
                         } else {
                             
