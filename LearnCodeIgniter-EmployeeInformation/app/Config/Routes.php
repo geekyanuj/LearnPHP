@@ -11,6 +11,7 @@ $routes->post('/login/authenticate', 'LoginController::login');
 
 
 $routes->get('/dashboard', 'DashboardController::index');
+$routes->get('/dashboard/getAllEmpData', 'DashboardController::getAllEmpData');
 $routes->get('/logout', 'DashboardController::logout');
 
 

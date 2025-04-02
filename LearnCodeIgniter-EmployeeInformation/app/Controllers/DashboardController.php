@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-// use CodeIgniter\Controller;
+use App\Models\EmployeeModel;
 
 class DashboardController extends BaseController
 {
@@ -12,7 +12,7 @@ class DashboardController extends BaseController
             return redirect()->to(site_url('/'));
         }else{
             if(session()->get('role')==2){
-                
+                // $this->getAllEmpData();
                 return view('admin/admin_dashboard'); 
             }else{
                 return view('employee/employee_dashboard'); 
@@ -26,5 +26,14 @@ class DashboardController extends BaseController
         $session = session();
         $session->destroy();
         return redirect()->to('/');
+    }
+
+    public function getAllEmpData(){
+        if($session = session()){
+            $employeeModel = new EmployeeModel();
+            $data = $employeeModel->findAll();
+            return response()->setJSON($data);
+        }
+        
     }
 }
