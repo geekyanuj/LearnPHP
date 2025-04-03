@@ -153,6 +153,56 @@
 
             </div>
         </div>
+
+        <!-- Update Employee Modal -->
+        <div class="modal fade" id="updateEmpModal" tabindex="-1" aria-labelledby="updateEmpModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateEmpModalLabel">Update Employee</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row text-center ">
+                            <div class="col">
+                                <form action="/updateEmployee" method="post" id="updateEmpForm">
+                                    <div class="input-container mt-1 p-2">
+                                        <label class="p-2">Name: </label>
+                                        <input type="text" name="name" id="name" class="rounded-1" required><br>
+                                    </div>
+                                    <div class="input-container p-2">
+                                        <label class="p-2">E-mail: </label>
+                                        <input type="email" name="email" id="email" class="rounded-1" required><br>
+                                    </div>
+                                    <div class="input-container p-2">
+                                        <label class="p-2">Username: </label>
+                                        <input type="text" name="username" id="username" class="rounded-1" required><br>
+                                    </div>
+                                    <label>Gender :</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="others" value="others">
+                                        <label class="form-check-label" for="others">Others</label>
+                                    </div>
+                            </div>
+
+                            <div class="input-container mt-2 p-2">
+                                <input id="addEmpBtn" name="add" type="submit" class="btn-primary btn" value="Add">
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 
@@ -184,15 +234,14 @@
     
     <script>
         $(document).ready(function() {
-            loadDataTable();
+            loadEmpDataTable();
         });
         
         // showing all reccords to table
-        function loadDataTable(){
+        function loadEmpDataTable(){
             // console.log("hello");
-            
             $('#empTable').DataTable({
-                // processing: true,
+                processing: true,
                 // serverSide: true,
                 ajax: {
                     url: '<?php echo base_url('/dashboard/getAllEmpData'); ?>',
@@ -229,7 +278,8 @@
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button id="updateButton" class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#updateemployeeModal" onclick=getData(' + row.id + ');>Edit</button> <button type="submit" class="btn btn-danger delete" id="delete" data-id=' + row.id + '>Delete</button>';
+                            
+                            return '<button id="updateButton" class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#updateEmpModal" onclick=getDataOfEmp(' + row.emp_id + ');>Edit</button> <button type="submit" class="btn btn-danger delete" id="delete" data-id=' + row.emp_id + '>Delete</button>';
                         }
                     }
                 ],
@@ -238,6 +288,11 @@
                     targets: '_all'
                 }]
             });
+        }
+
+        function getDataOfEmp(id){
+            console.log(id);
+            
         }
     </script>
 

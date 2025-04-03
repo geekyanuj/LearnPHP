@@ -31,7 +31,7 @@ class DashboardController extends BaseController
     public function getAllEmpData(){
         if($session = session()){
             $employeeModel = new EmployeeModel();
-            $data = $employeeModel->findAll();
+            $data = $employeeModel->where('role',1)->findAll();
             return response()->setJSON($data);
         }
         
