@@ -27,22 +27,28 @@
                 <div class="sub-menu">
                     <div class="user-info">
                         <img class="user-pic-img" src="<?php echo base_url('assets/male.png') ?>" alt="user-pic">
-                        <h4><?php $session = session();
-                            echo $session->get('username') ?></h4>
+                        <h5><?php $session = session();
+                            echo $session->get('username') ?></h5>
                     </div>
                     <hr>
                     <a href="" class="sub-menu-link">
-                        <i class="bi bi-person"></i>
+                        <div class="icon">
+                            <i class="bi bi-person"></i>
+                        </div>
                         <p>Edit Profile</p>
                         <span>></span>
                     </a>
                     <a href="" class="sub-menu-link">
-                        <i class="bi bi-gear"></i>
+                        <div class="icon">
+                            <i class="bi bi-gear"></i>
+                        </div>
                         <p>Setting & Privacy</p>
                         <span>></span>
                     </a>
                     <a href="/logout" class="sub-menu-link">
-                        <i class="bi bi-box-arrow-right"></i>
+                        <div class="icon">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </div>
                         <p>Logout</p>
                         <span>></span>
                     </a>
@@ -110,24 +116,27 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEmpModalLabel">Add Employee</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button id="add-modal-close-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row text-center ">
                             <div class="col">
-                                <form action="/addEmployee" method="post" id="addEmpForm">
+                                <form action="/dashboard/addEmployee" method="post" id="addEmpForm">
                                     <div class="input-container mt-1 p-2">
-                                        <label class="p-2">Name: </label>
-                                        <input type="text" name="name" id="name" class="rounded-1" required><br>
+                                        <label class="w-25 " for="name">Name: </label>
+                                        <input type="text" name="full_name" id="name" class="rounded-1" required><br>
                                     </div>
+                                    <p id="name-error" class="error"></p>
                                     <div class="input-container p-2">
-                                        <label class="p-2">E-mail: </label>
+                                        <label class="w-25" for="email">E-mail: </label>
                                         <input type="email" name="email" id="email" class="rounded-1" required><br>
                                     </div>
+                                    <p id="email-error" class="text-danger error"></p>
                                     <div class="input-container p-2">
-                                        <label class="p-2">Username: </label>
+                                        <label class="w-25" for="username">Username: </label>
                                         <input type="text" name="username" id="username" class="rounded-1" required><br>
                                     </div>
+                                    <p id="username-error" class="error"></p>
                                     <label>Gender :</label>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender" id="male" value="male">
@@ -141,12 +150,13 @@
                                         <input class="form-check-input" type="radio" name="gender" id="others" value="others">
                                         <label class="form-check-label" for="others">Others</label>
                                     </div>
+                                    <p id="gender-error" class="error"></p>
+                                    <div class="input-container mt-2 p-2">
+                                        <input id="addEmpBtn" name="add" type="submit" class="btn-primary btn" value="Add">
+                                    </div>
+                                </form>
                             </div>
 
-                            <div class="input-container mt-2 p-2">
-                                <input id="addEmpBtn" name="add" type="submit" class="btn-primary btn" value="Add">
-                            </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,24 +170,28 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="updateEmpModalLabel">Update Employee</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="update-modal-close-btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row text-center ">
+                        <div class="row text-center">
                             <div class="col">
-                                <form action="/updateEmployee" method="post" id="updateEmpForm">
+                                <form action="/dashboard/updateEmployee" method="post" id="updateEmpForm">
+                                    <input id="u-emp_id" type="hidden" name="emp_id">
                                     <div class="input-container mt-1 p-2">
                                         <label class="p-2">Name: </label>
-                                        <input type="text" name="name" id="name" class="rounded-1" required><br>
+                                        <input type="text" name="full_name" id="u-name" class="rounded-1" required><br>
                                     </div>
+                                    <p id="u-name-error" class="error"></p>
                                     <div class="input-container p-2">
                                         <label class="p-2">E-mail: </label>
-                                        <input type="email" name="email" id="email" class="rounded-1" required><br>
+                                        <input type="email" name="email" id="u-email" class="rounded-1" required><br>
                                     </div>
+                                    <p id="u-email-error" class="text-danger error"></p>
                                     <div class="input-container p-2">
                                         <label class="p-2">Username: </label>
-                                        <input type="text" name="username" id="username" class="rounded-1" required><br>
+                                        <input type="text" name="username" id="u-username" class="rounded-1" required><br>
                                     </div>
+                                    <p id="u-username-error" class="error"></p>
                                     <label>Gender :</label>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender" id="male" value="male">
@@ -191,12 +205,13 @@
                                         <input class="form-check-input" type="radio" name="gender" id="others" value="others">
                                         <label class="form-check-label" for="others">Others</label>
                                     </div>
+                                    <p id="u-gender-error" class="error"></p>
+                                    <div class="input-container mt-2 p-2">
+                                        <input id="updateEmpBtn" name="update" type="submit" class="btn-primary btn" value="Update">
+                                    </div>
+                                </form>
                             </div>
 
-                            <div class="input-container mt-2 p-2">
-                                <input id="addEmpBtn" name="add" type="submit" class="btn-primary btn" value="Add">
-                            </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -218,7 +233,7 @@
 
     <!-- Include DataTables JS -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    
+
     <!-- Include Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 
@@ -231,14 +246,21 @@
             subMenu.classList.toggle("open-menu");
         }
     </script>
-    
+
     <script>
         $(document).ready(function() {
             loadEmpDataTable();
+
+            addEmployee();
+
+            updateEmployee();
+            deleteEmployee();
+
+
+
         });
-        
-        // showing all reccords to table
-        function loadEmpDataTable(){
+
+        function loadEmpDataTable() {
             // console.log("hello");
             $('#empTable').DataTable({
                 processing: true,
@@ -278,8 +300,8 @@
                     {
                         data: null,
                         render: function(data, type, row) {
-                            
-                            return '<button id="updateButton" class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#updateEmpModal" onclick=getDataOfEmp(' + row.emp_id + ');>Edit</button> <button type="submit" class="btn btn-danger delete" id="delete" data-id=' + row.emp_id + '>Delete</button>';
+
+                            return '<button id="updateButton" class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#updateEmpModal" onclick=getDataOfEmpById(' + row.emp_id + ');>Edit</button> <button type="submit" class="btn btn-danger delete" id="delete" onclick=deleteEmployee(' +row.emp_id+ ')>Delete</button>';
                         }
                     }
                 ],
@@ -290,9 +312,175 @@
             });
         }
 
-        function getDataOfEmp(id){
-            console.log(id);
-            
+        function addEmployee() {
+            $('#addEmpBtn').on('click', function(e) {
+                e.preventDefault();
+                var data = $('#addEmpForm').serialize();
+                // console.log(data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $('#addEmpForm').attr('action'), // routes name use
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+
+                        // console.log(response);
+                        if (response.status) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: 'Employee added successfully.',
+                            });
+                            $('#addEmpForm').trigger("reset");
+                            $('#add-modal-close-btn').click();
+                            $('#empTable').DataTable().ajax.reload();
+
+
+                        } else {
+                            $('.error').css({
+                                'display': 'block'
+                            });
+                            $('#name-error').html(response.message['full_name']);
+                            $('#email-error').html(response.message['email']);
+                            $('#username-error').html(response.message['username']);
+                            $('#gender-error').html(response.message['gender']);
+                            setInterval(() => {
+                                $('#name-error').html("");
+                                $('#email-error').html("");
+                                $('#username-error').html("");
+                                $('#gender-error').html("");
+                                $('.error').css({
+                                    'display': 'none'
+                                });
+                            }, 3000);
+                        }
+                    },
+                    error: function(response, xhr, status) {
+
+                        // console.log(response.responseJSON.message);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.responseJSON.message,
+                        });
+
+                    }
+                });
+
+            });
+        }
+
+        function updateEmployee() {
+            $('#updateEmpBtn').on('click', function(e) {
+                e.preventDefault();
+                var data = $('#updateEmpForm').serialize();
+                // console.log(data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $('#updateEmpForm').attr('action'), // routes name use
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+
+                        console.log(response);
+                        if (response.status) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: 'Employee Updated successfully.',
+                            });
+                            $('#updateEmpForm').trigger("reset");
+                            $('#update-modal-close-btn').click();
+                            $('#empTable').DataTable().ajax.reload();
+
+
+                        } else {
+                            $('.error').css({
+                                'display': 'block'
+                            });
+                            $('#u-name-error').html(response.message['full_name']);
+                            $('#u-email-error').html(response.message['email']);
+                            $('#u-username-error').html(response.message['username']);
+                            $('#u-gender-error').html(response.message['gender']);
+                            setInterval(() => {
+                                $('#u-name-error').html("");
+                                $('#u-email-error').html("");
+                                $('#u-username-error').html("");
+                                $('#u-gender-error').html("");
+                                $('.error').css({
+                                    'display': 'none'
+                                });
+                            }, 3000);
+                        }
+                    },
+                    error: function(response, xhr, status) {
+
+                        // console.log(response.responseJSON.message);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.responseJSON.message,
+                        });
+
+                    }
+                });
+
+            });
+        }
+
+        function getDataOfEmpById(id) {
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo base_url('/dashboard/getDataOfEmpById') ?>",
+                data: {
+                    id
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    // console.log(response);
+                    $('#updateEmpForm').trigger("reset");
+                    $('#u-emp_id').val(response[0].emp_id);
+                    $('#u-email').val(response[0].email);
+                    $('#u-name').val(response[0].full_name);
+                    $('#u-username').val(response[0].username);
+                    $('input[name="gender"][value="' + response[0].gender + '"]').prop('checked', true);
+
+                }
+            });
+
+        }
+
+        function deleteEmployee(id) {
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('/dashboard/deleteEmployee') ?>",
+                data: {
+                    id
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    // console.log(response);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: response.message,
+                    });
+                    $('#empTable').DataTable().ajax.reload();
+
+                },
+                error: function(xhr, response, status){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed",
+                        text: response.responseJSON.message,
+                    });
+                }
+            });
+
         }
     </script>
 
